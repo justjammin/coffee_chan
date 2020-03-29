@@ -1,13 +1,5 @@
 # Define your functions
 
-def coffee_bot():
-  print("Welcome to the cafe!")
-  size = get_size()
-  drink_type = get_drink_type()
-  print('Alright, that\'s a {} {}!'.format(size, drink_type))
-  name = input('Can I get your name please? ')
-  print('Thanks, ' + name + '! Your drink will be ready shortly.')
-
 def get_size():
   res = input('What size drink can I get for you? \n[a] Small \n[b] Medium \n[c] Large \n> ')
   if res == 'a':
@@ -28,7 +20,7 @@ def get_drink_type():
   if res == 'a':
     return 'Brewed Coffee'
   elif res == 'b':
-    return 'Mocha'
+    return order_mocha()
   elif res == 'c':
     return order_latte()
   else:
@@ -46,6 +38,46 @@ def order_latte():
   else:
     print_message()
     return order_latte()  
+
+def order_mocha():
+  while True:
+    res = input('Would you like to try our limited-edition peppermint mocha? \n[a] Sure! \n[b] Maybe next time! \n> ')
+    if res == 'a':
+      return 'peppermint mocha'
+    elif res == 'b':
+      return 'mocha'
+    else:
+      print_message()
+      return order_mocha()
+
+
+def coffee_bot():
+  print('Welcome to the cafe!')
+
+  order_drink = 'y'
+  drinks = []
+
+  while order_drink == 'y':
+    size = get_size()  
+    drink_type = get_drink_type()
+
+    drink = '{} {}'.format(size, drink_type)
+    print('Alright, that\'s a {}!'.format(drink))
+    drinks.append(drink)
+
+    while True:
+      order_drink = input('Would you like to order another drink? (y/n) \n> ')
+
+      if order_drink in ['y', 'n']:
+        break
+
+  print('Okay, so I have:')
+
+  for drink in drinks:
+    print('-', drink)
+  
+  name = input('Can I get your name please? \n> ')
+  print('Thanks, {}! Your order will be ready shortly.'.format(name))
 
 # Call coffee_bot()!
 
